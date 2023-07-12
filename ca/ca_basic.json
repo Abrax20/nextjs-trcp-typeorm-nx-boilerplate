@@ -1,0 +1,15 @@
+{
+    "CN": "Reachout dev Intermediate CA",
+    "key": {
+        "algo": "rsa",
+        "size": 4096
+    },
+    "names": [
+        {
+            "C": "DE",
+            "ST": "Berlin",
+            "L": "Berlin",
+            "O": "luca Dev"
+        }
+    ]
+}

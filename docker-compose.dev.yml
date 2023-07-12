@@ -1,0 +1,50 @@
+version: '3.3'
+
+services:
+  elb:
+    volumes:
+      - ./apps/elb/nginx.conf:/etc/nginx/nginx.conf
+      - ./apps/elb/shared:/etc/nginx/shared
+      - ./apps/elb/ssl:/etc/nginx/ssl
+  app:
+    image: 'example.dev/app:latest'
+    build:
+      dockerfile: 'apps/app/Dockerfile.dev'
+    volumes:
+      - ./libs:/app/libs
+      - ./.env:/app/.env
+      - ./env.mjs:/app/env.mjs
+      - ./apps/app:/app/apps/app
+    depends_on:
+      - elb
+      - redis
+      - database
+  backend:
+    image: 'example.dev/backend:latest'
+    build:
+      dockerfile: 'apps/backend/Dockerfile.dev'
+    volumes:
+      - ./libs:/app/libs
+      - ./.env:/app/.env
+      - ./config:/app/config
+      - ./env.mjs:/app/env.mjs
+      - ./apps/backend:/app/apps/backend
+    depends_on:
+      - elb
+      - redis
+      - database
+  agent:
+    image: 'example.dev/agent:latest'
+    build:
+      dockerfile: 'apps/agent/Dockerfile.dev'
+    volumes:
+      - ./libs:/app/libs
+      - ./.env:/app/.env
+      - ./env.mjs:/app/env.mjs
+      - ./apps/agent:/app/apps/agent
+    depends_on:
+      - elb
+      - redis
+      - database
+volumes:
+  yarn-cache:

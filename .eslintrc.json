@@ -1,0 +1,64 @@
+{
+  "root": true,
+  "ignorePatterns": ["**/*"],
+  "plugins": ["@nrwl/nx", "simple-import-sort"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "extends": ["prettier", "plugin:prettier/recommended"],
+      "rules": {
+        "prettier/prettier": ["warn", { "singleQuote": true }],
+        "simple-import-sort/exports": "warn",
+        "simple-import-sort/imports": [
+          "warn",
+          {
+            "groups": [
+              ["^\\u0000"],
+              ["^react"],
+              ["^@?\\w"],
+              ["^@reachout/"],
+              ["^[^.]"],
+              ["^\\.\\./\\.\\./\\.\\./\\.\\./\\.\\.(?!/?$)", "^\\.\\./\\.\\./\\.\\./\\.\\./\\.\\.?$"],
+              ["^\\.\\./\\.\\./\\.\\./\\.\\.(?!/?$)", "^\\.\\./\\.\\./\\.\\./\\.\\.?$"],
+              ["^\\.\\./\\.\\./\\.\\.(?!/?$)", "^\\.\\./\\.\\./\\.\\.?$"],
+              ["^\\.\\./\\.\\.(?!/?$)", "^\\.\\./\\.\\.?$"],
+              ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+              ["^\\."]
+            ]
+          }
+        ],
+        "@nrwl/nx/enforce-module-boundaries": [
+          "error",
+          {
+            "enforceBuildableLibDependency": true,
+            "allow": [],
+            "depConstraints": [
+              {
+                "sourceTag": "*",
+                "onlyDependOnLibsWithTags": ["*"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nrwl/nx/typescript"],
+      "rules": {
+        "no-empty": 0,
+        "@typescript-eslint/ban-ts-comment": 0,
+        "@typescript-eslint/no-explicit-any": 0,
+        "@typescript-eslint/no-empty-function": 0,
+        "@typescript-eslint/consistent-type-assertions": 0,
+        "@typescript-eslint/explicit-function-return-type": 0,
+        "@typescript-eslint/no-angle-bracket-type-assertion": 0
+      }
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nrwl/nx/javascript"],
+      "rules": {}
+    }
+  ]
+}

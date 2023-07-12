@@ -1,0 +1,27 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "noImplicitAny": false,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es6", "es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@example/database": ["libs/database/src/index.ts"],
+      "@example/generic": ["libs/generic/src/index.ts"],
+      "@example/types": ["libs/types/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

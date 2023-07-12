@@ -1,0 +1,17 @@
+{
+    "CN": "localhost",
+    "key": {
+        "algo": "rsa",
+        "size": 4096
+    },
+
+    "hosts": ["localhost"],
+    "names": [
+        {
+            "C": "DE",
+            "ST": "Berlin",
+            "L": "Berlin",
+            "O": "Reachout Dev"
+        }
+    ]
+}
