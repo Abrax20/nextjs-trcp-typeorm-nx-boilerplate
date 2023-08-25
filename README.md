@@ -1,6 +1,6 @@
 # Sprindt 
 
-<a alt="Nx logo" href="https://sprindt.com" target="_blank" rel="noreferrer"><img src="https://i.ibb.co/f1ts0rw/Screenshot-2023-08-25-at-13-42-57.png" width="45"></a>
+<a alt="Nx logo" href="https://sprindt.com" target="_blank" rel="noreferrer"><img src="https://i.ibb.co/f1ts0rw/Screenshot-2023-08-25-at-13-42-57.png" width="240"></a>
 
 ✨ **Sprindt is powered by [Nx](https://nx.dev), a smart, fast, and extensible build system.** ✨
 
