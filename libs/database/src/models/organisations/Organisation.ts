@@ -2,11 +2,7 @@ import { zod } from '@example/generic';
 import { LanguageType } from '@example/types';
 import {
   Column,
-  CreateDateColumn,
-  Entity,
-  Index,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
+  Entity
 } from 'typeorm';
 
 import { Model } from '../Model';
@@ -15,18 +11,12 @@ import { Model } from '../Model';
   name: 'Organisation',
 })
 export class Organisation extends Model {
-  @PrimaryGeneratedColumn('uuid')
-  public uuid!: string;
-
-  @Index({ fulltext: true, unique: true })
-  @Column('text', { nullable: false })
+  @Column('text', { nullable: false, unique: true })
   public orgId!: string;
 
-  @Index({ fulltext: true })
   @Column('text', { nullable: false })
   public name!: string;
 
-  @Index({ fulltext: true })
   @Column('text', { default: '' })
   public website!: string;
 
@@ -48,10 +38,4 @@ export class Organisation extends Model {
     this.changeField('website', website, zod.string());
     return this.save();
   }
-
-  @CreateDateColumn()
-  public createdAt!: Date;
-
-  @UpdateDateColumn()
-  public updatedAt!: Date;
 }

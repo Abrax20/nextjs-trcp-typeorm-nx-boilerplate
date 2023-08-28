@@ -4,11 +4,8 @@ import { zod } from '@example/generic';
 import { LanguageType } from '@example/types';
 import {
   Column,
-  CreateDateColumn,
   Entity,
-  Index,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
+  Index
 } from 'typeorm';
 
 import { Model } from '../Model';
@@ -17,9 +14,6 @@ import { Model } from '../Model';
   name: 'Users',
 })
 export class User extends Model {
-  @PrimaryGeneratedColumn('uuid')
-  public uuid!: string;
-
   public async update(
     user: Partial<{
       lastName: string;
@@ -34,22 +28,12 @@ export class User extends Model {
     return this.save();
   }
 
-  @Index({
-    unique: true,
-    fulltext: true,
-  })
-  @Column('varchar', { nullable: false, length: 255 })
+  @Column('varchar', { nullable: false, length: 255, unique: true })
   public email!: string;
 
-  @Index({
-    fulltext: true,
-  })
   @Column('varchar', { nullable: false, length: 255 })
   public firstName!: string;
 
-  @Index({
-    fulltext: true,
-  })
   @Column('varchar', { nullable: false, length: 255 })
   public lastName!: string;
 
@@ -62,10 +46,4 @@ export class User extends Model {
     default: LanguageType.English,
   })
   public language!: LanguageType;
-
-  @CreateDateColumn()
-  public createdAt!: Date;
-
-  @UpdateDateColumn()
-  public updatedAt!: Date;
 }
