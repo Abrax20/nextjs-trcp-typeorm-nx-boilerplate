@@ -45,6 +45,13 @@
     "node_modules",
     "jest.config.ts",
     "app/**/*.spec.ts",
-    "app/**/*.test.ts"
+    "app/**/*.test.ts",
+    "**/*.stories.ts",
+    "**/*.stories.js"
+  ],
+  "references": [
+    {
+      "path": "./.storybook/tsconfig.json"
+    }
   ]
 }

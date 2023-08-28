@@ -62,6 +62,43 @@
       "options": {
         "lintFilePatterns": ["apps/app/**/*.{ts,tsx,js,jsx}"]
       }
+    },
+    "storybook": {
+      "executor": "@nx/storybook:storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "apps/app/.storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@nx/storybook:build",
+      "outputs": ["{options.outputDir}"],
+      "options": {
+        "outputDir": "dist/storybook/app",
+        "configDir": "apps/app/.storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "static-storybook": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "app:build-storybook",
+        "staticFilePath": "dist/storybook/app"
+      },
+      "configurations": {
+        "ci": {
+          "buildTarget": "app:build-storybook:ci"
+        }
+      }
     }
   },
   "tags": []
