@@ -29,10 +29,10 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Uber Assistent</title>
+        <title>Dashboard</title>
         <meta
           name="description"
-          content="Become an overview about your company."
+          content="Become an overview about your A/B Tests."
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
