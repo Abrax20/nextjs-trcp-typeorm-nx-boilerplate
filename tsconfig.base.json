@@ -18,9 +18,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@example/database": ["libs/database/src/index.ts"],
-      "@example/generic": ["libs/generic/src/index.ts"],
-      "@example/types": ["libs/types/src/index.ts"]
+      "@sprindt/database": ["libs/database/src/index.ts"],
+      "@sprindt/generic": ["libs/generic/src/index.ts"],
+      "@sprindt/types": ["libs/types/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

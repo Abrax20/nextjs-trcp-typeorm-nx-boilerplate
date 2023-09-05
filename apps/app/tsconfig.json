@@ -5,15 +5,10 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "checkJs": true,
-    "skipLibCheck": true,
     "strict": true,
     "noImplicitAny": false,
     "forceConsistentCasingInFileNames": true,
-    "strictPropertyInitialization": false,
     "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
@@ -27,9 +22,9 @@
     ],
     "types": ["jest", "node"],
     "paths": {
-      "@example/database": ["../../libs/database/src/index.ts"],
-      "@example/generic": ["../../libs/generic/src/index.ts"],
-      "@example/types": ["../../libs/types/src/index.ts"]
+      "@sprindt/database": ["../../libs/database/src/index.ts"],
+      "@sprindt/generic": ["../../libs/generic/src/index.ts"],
+      "@sprindt/types": ["../../libs/types/src/index.ts"]
     }
   },
   "include": [
@@ -37,7 +32,7 @@
     "**/*.tsx",
     "**/*.js",
     "**/*.jsx",
-    ".//.next/types/**/*.ts",
+    "./.next/types/**/*.ts",
     "../../dist/apps/app/.next/types/**/*.ts",
     "next-env.d.ts"
   ],
