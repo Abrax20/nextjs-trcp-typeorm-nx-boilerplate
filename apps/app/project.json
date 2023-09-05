@@ -88,6 +88,12 @@
         }
       }
     },
+    "test-storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "test-storybook -c apps/app/.storybook --url=http://localhost:4400"
+      }
+    },
     "static-storybook": {
       "executor": "@nx/web:file-server",
       "options": {
