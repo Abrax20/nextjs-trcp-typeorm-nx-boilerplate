@@ -1,4 +1,4 @@
-# Sprindt 
+# Sprindt
 
 <a alt="Nx logo" href="https://sprindt.com" target="_blank" rel="noreferrer"><img src="https://i.ibb.co/f1ts0rw/Screenshot-2023-08-25-at-13-42-57.png" width="240"></a>
 
@@ -8,7 +8,7 @@ Sprindt is an innovative platform designed to optimize e-commerce experiences us
 
 ## Getting Started
 
-### Start the app 
+### Start the app
 
 To start the development server run `nx serve app`. Open your browser and navigate to http://localhost:4200/. Happy coding!
 
@@ -35,6 +35,16 @@ You can also run multiple targets:
 `nx run-many -t <target1> <target2> -p <proj1> <proj2>`
 
 Targets can be defined in the `package.json` or `projects.json`. Learn more [in the docs](https://nx.dev/core-features/run-tasks).
+
+### Running the App with Docker
+
+Note: You need to have Docker running!
+
+`yarn dev up`
+
+### Running Storybook locally
+
+`yarn nx run app:storybook`
 
 ### Editor Integration
 
