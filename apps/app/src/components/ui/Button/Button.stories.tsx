@@ -1,17 +1,27 @@
 import type { Meta } from '@storybook/react';
-
 import Button from './Button';
+
+// STORY
 
 const Story: Meta<typeof Button> = {
   component: Button,
-  title: 'MyButton',
+  title: 'DefaultButton',
 };
+
 export default Story;
+
+// ARGS
+
+type PrimaryArgs = {
+  children: React.ReactNode;
+  p: number;
+  disabled: boolean;
+};
 
 export const Primary = {
   args: {
-    text: 'Click me!',
-    padding: 10,
+    children: 'Click me!',
+    p: 10,
     disabled: true,
-  },
+  } as PrimaryArgs,
 };

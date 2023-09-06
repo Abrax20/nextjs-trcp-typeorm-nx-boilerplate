@@ -2,7 +2,12 @@ import type { StorybookConfig } from '@storybook/nextjs';
 
 const previewAnnotations: StorybookConfig = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
-  addons: ['@storybook/addon-essentials'],
+  addons: [
+    "@storybook/addon-links",
+    "@storybook/addon-essentials",
+    "@storybook/addon-interactions",
+    "storybook-addon-mantine",
+  ],
   framework: {
     name: '@storybook/nextjs',
     options: {},

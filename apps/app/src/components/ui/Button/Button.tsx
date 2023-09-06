@@ -1,7 +1,18 @@
+import { ButtonProps, Button as MantineButton } from '@mantine/core';
 import React from 'react';
 
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
+const Button: React.FC<ButtonProps> = ({
+  children,
+  radius = 'md',
+  ...props
+}: ButtonProps) => {
+  console.log({ radius });
 
-export default function Button({ children, ...props }: ButtonProps) {
-  return <button {...props}>{children}</button>;
-}
+  return (
+    <MantineButton radius={radius} {...props}>
+      {children}
+    </MantineButton>
+  );
+};
+
+export default Button;
