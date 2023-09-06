@@ -5,7 +5,6 @@ import { LanguageType } from '@example/types';
 import {
   Column,
   Entity,
-  Index
 } from 'typeorm';
 
 import { Model } from '../Model';
