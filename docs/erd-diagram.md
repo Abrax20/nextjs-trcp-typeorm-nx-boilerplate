@@ -223,6 +223,7 @@ erDiagram
         string id PK
         string name UK
         string description
+        string image_url
         date created_at
         date updated_at
     }
