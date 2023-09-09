@@ -1,111 +1,136 @@
 ```mermaid
 erDiagram
-    ACCOUNT ||--o{ USER : "HAS"
-    ACCOUNT ||--o{ SUBSCRIPTION : "HAS"
-    ACCOUNT ||--o{ PRODUCT : "OFFERS"
-    ACCOUNT ||--o{ ABTEST : "RUNS"
-    ACCOUNT ||--o{ ERRORLOG : "GENERATES"
-    ACCOUNT ||--o{ AUDITLOG : "GENERATES"
-    ACCOUNT ||--o{ ACCOUNT_PLATFORM : "INTEGRATES"
-    USER ||--o{ ROLE : "HAS"
-    USER ||--o{ NOTIFICATION : "HAS"
-    USER ||--o{ USERLOG : "GENERATES"
-    ROLE ||--o{ ROLE_PERMISSION : "HAS"
-    PERMISSION ||--o{ ROLE_PERMISSION : "BELONGS_TO"
-    PRODUCT ||--o{ ABTEST : "HAS_TEST"
-    PRODUCT ||--o{ PRODUCT_VARIANT : "HAS"
-    PRODUCT ||--o{ PRODUCT_IMAGE : "HAS"
-    PRODUCT ||--o{ PRODUCT_PUBLISHED_SCOPE : "HAS"
-    PRODUCT ||--o{ PRODUCT_PRODUCT_CATEGORY : "HAS"
-    PLATFORM ||--o{ PRODUCT : "SUPPORTS"
-    PLATFORM ||--o{ ACCOUNT_PLATFORM : "INTEGRATED_BY"
-    PUBLISHED_SCOPE ||--o{ PRODUCT_PUBLISHED_SCOPE : "BELONGS_TO"
-    PRODUCT_CATEGORY ||--o{ PRODUCT_PRODUCT_CATEGORY : "BELONGS_TO"
-    ABTEST ||--o{ PERFORMANCE : "HAS"
-    ABTEST ||--o{ STRATEGY : "EMPLOYS"
-    SUBSCRIPTION ||--o{ BILLING : "HAS"
-    SUBSCRIPTION ||--|{ STRIPE : "USES"
+  ACCOUNT ||--|{ USER : ""
+    ACCOUNT ||--|| SUBSCRIPTION : ""
+    ACCOUNT ||--o{ PRODUCT : ""
+    ACCOUNT ||--o{ ABTEST : ""
+    ACCOUNT ||--|| ERRORLOG : ""
+    ACCOUNT ||--|| AUDITLOG : ""
+    ACCOUNT ||--o{ ACCOUNT_PLATFORM : ""
+
+    USER ||--|| ROLE : ""
+    USER ||--|| NOTIFICATION : ""
+    USER ||--|{ USERLOG : ""
+    
+    ROLE ||--|{ ROLE_PERMISSION : ""
+    PERMISSION ||--|{ ROLE_PERMISSION : ""
+    PLAN ||--|| SUBSCRIPTION : ""
+
+    PRODUCT ||--o{ ABTEST : ""
+    PRODUCT ||--|{ PRODUCT_VARIANT : ""
+    PRODUCT ||--|{ PRODUCT_IMAGE : ""
+    PRODUCT ||--o{ PRODUCT_PUBLISHED_SCOPE : ""
+    PRODUCT ||--o{ PRODUCT_PRODUCT_CATEGORY : ""
+
+    PLATFORM ||--o{ ACCOUNT_PLATFORM : ""
+    ACCOUNT_PLATFORM ||--o{ PRODUCT : ""
+
+    PUBLISHED_SCOPE ||--o{ PRODUCT_PUBLISHED_SCOPE : ""
+    PRODUCT_CATEGORY ||--o{ PRODUCT_PRODUCT_CATEGORY : ""
+
+    ABTEST ||--|| PERFORMANCE : ""
+    ABTEST ||--|{ STRATEGY : ""
+
+    SUBSCRIPTION ||--o{ BILLING : ""
 
     ACCOUNT {
         string id PK
-        string accountName UK
+        string account_name UK
         date created_at
         date updated_at
-        boolean isActive
+        boolean is_active
     }
+
 
     USER {
         string id PK
         string email UK
         string name
-        string hashedPassword
+        string hashed_password
         string roleId FK
+        boolean is_active
         date created_at
         date updated_at
-        boolean isActive
     }
 
     ROLE {
         string id PK
         string name UK
         string description
+        date created_at
+        date updated_at
     }
 
     PERMISSION {
         string id PK
         string name UK
         string description
+        date created_at
+        date updated_at
     }
 
     ROLE_PERMISSION {
-        string roleId FK
-        string permissionId FK
+        string role_id FK
+        string permission_id FK
+        date created_at
+        date updated_at
+    }
+
+    PLAN {
+        string id PK
+        string name UK
+        string description
+        float price
+        date created_at
+        date updated_at
     }
 
     SUBSCRIPTION {
         string id PK
-        string accountId FK
-        string plan UK
-        date renewalDate
+        string account_id FK
+        string planId FK
+        boolean autoRenew
+        boolean notation
+        string stripe_customer_id UK
+        string stripe_payment_method_id
+        string stripe_subscription_id UK
+        date stripe_subscription_end_date
+        string stripe_subscription_status
         date created_at
         date updated_at
-        boolean autoRenew
-    }
-
-    STRIPE {
-        string id PK
-        string api_key UK
     }
 
     BILLING {
         string id PK
-        string subscriptionId FK
+        string subscription_id FK
         float amount
         string address
         date billingDate
         date created_at
         date updated_at
     }
- 
+
 
     PLATFORM {
         string id PK
         string name UK
         string description
+        date created_at
+        date updated_at
     }
 
     ACCOUNT_PLATFORM {
         string accountId FK
         string platformId FK
         string api_endpoint
-        string auth_token UK
-        date integrated_at
+        string api_key UK
+        date created_at
+        date updated_at
     }
 
     PRODUCT {
         string id PK
-        string platformId FK
-        string accountId FK
+        string account_platform_id FK
         string title
         string body_html
         string vendor
@@ -118,22 +143,30 @@ erDiagram
     PUBLISHED_SCOPE {
         string id PK
         string name UK
+        date created_at
+        date updated_at 
     }
 
     PRODUCT_PUBLISHED_SCOPE {
         string productId FK
-        string publishedScopeId FK
+        string published_scope_id FK
+        date created_at
+        date updated_at
     }
 
     PRODUCT_CATEGORY {
         string id PK
         string name UK
         string description
+        date created_at
+        date updated_at
     }
 
     PRODUCT_PRODUCT_CATEGORY {
-        string productId FK
-        string productCategoryId FK
+        string product_id FK
+        string product_category_id FK
+        date created_at
+        date updated_at
     }
 
     PRODUCT_VARIANT {
@@ -149,6 +182,8 @@ erDiagram
         string weight_unit
         int inventory_quantity
         boolean requires_shipping
+        date created_at
+        date updated_at
     }
 
     PRODUCT_IMAGE {
@@ -164,22 +199,22 @@ erDiagram
         string id PK
         string productId FK
         string name UK
-        date startDate
-        date endDate
-        string strategyId FK
+        date start_date
+        date end_date
+        string strategy_id FK
         date created_at
         date updated_at
     }
 
     PERFORMANCE {
         string id PK
-        string abtestId FK
+        string abtest_id FK
         int sessions
-        float conversionRate
+        float conversion_rate
         float aov
         float revenue
-        float revenuePerSession
-        float likelihoodToPerform
+        float revenue_per_session
+        float liklie_hood_to_perform
         date created_at
         date updated_at
     }
@@ -195,8 +230,8 @@ erDiagram
     NOTIFICATION {
         string id PK
         string userId FK
-        boolean emailNotifications
-        boolean pushNotifications
+        boolean email_notifications
+        boolean push_notifications
         date created_at
         date updated_at
     }
@@ -205,27 +240,30 @@ erDiagram
         string id PK
         string userId FK
         date timestamp
-        string activityType
+        string activity_type
         string description
         date created_at
+        date updated_at
     }
 
     ERRORLOG {
         string id PK
         date timestamp
-        string errorType
+        string error_type
         string description
-        string stackTrace
+        string stack_trace
         date created_at
+        date updated_at
     }
 
     AUDITLOG {
         string id PK
         date timestamp
-        string entityType
-        string entityId
-        string actionType
-        string changedData
+        string entity_type
+        string entity_id
+        string action_type
+        string changed_data
         date created_at
+        date updated_at
     }
 ```
