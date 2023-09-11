@@ -1,8 +1,7 @@
 {
-    "typescript.tsdk": "node_modules/typescript/lib",
-    "editor.codeActionsOnSave": {
-      "source.organizeImports": true
-    },
-    "prettier.configPath": ".prettierrc"
-  }
-  
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
+  "prettier.configPath": ".prettierrc"
+}

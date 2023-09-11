@@ -4,8 +4,8 @@ import { config } from 'dotenv';
 import * as process from 'process';
 import { DataSource } from 'typeorm';
 
+import { Entities } from './entities';
 import { getMigrations } from './migrations';
-import { Entities } from './models';
 
 config();
 export const appDataSource = new DataSource({
