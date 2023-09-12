@@ -1,2 +1,2 @@
-export * from './entities';
-export * from './helpers';
+export * from './entity';
+export * from './helper';

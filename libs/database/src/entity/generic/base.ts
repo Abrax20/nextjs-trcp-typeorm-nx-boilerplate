@@ -1,11 +1,12 @@
-import { BaseEntity,
+import {
+  BaseEntity,
   CreateDateColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { z } from 'zod';
 
-export class Model extends BaseEntity {
+export class MainEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   public uuid!: string;
 

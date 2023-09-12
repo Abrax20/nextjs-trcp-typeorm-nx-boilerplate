@@ -4,7 +4,7 @@ import { config } from 'dotenv';
 import * as process from 'process';
 import { DataSource } from 'typeorm';
 
-import { Entities } from './entities';
+import { Entities } from './entity';
 import { getMigrations } from './migrations';
 
 config();

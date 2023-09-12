@@ -1,16 +1,13 @@
-import { zod } from '@example/generic';
-import { LanguageType } from '@example/types';
-import {
-  Column,
-  Entity
-} from 'typeorm';
+import { zod } from '@sprindt/generic';
+import { LanguageType } from '@sprindt/types';
+import { Column, Entity } from 'typeorm';
 
-import { Model } from '../Model';
+import { MainEntity } from './generic/base';
 
 @Entity({
   name: 'Organisation',
 })
-export class Organisation extends Model {
+export class Organisation extends MainEntity {
   @Column('text', { nullable: false, unique: true })
   public orgId!: string;
 

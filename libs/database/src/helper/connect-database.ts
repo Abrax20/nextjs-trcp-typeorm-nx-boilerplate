@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
 
-import { Entities } from '../entities';
+import { Entities } from '../entity';
 
 export type DatabaseConnection = {
   port: number;

@@ -1,6 +1,6 @@
 import { Column, Entity } from 'typeorm';
 
-import { Model } from '../Model';
+import { Model } from './base';
 
 @Entity({
   name: 'IPAddressAllowList',

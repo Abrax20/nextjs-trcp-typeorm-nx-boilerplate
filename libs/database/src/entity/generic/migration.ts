@@ -1,11 +1,11 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-import { Model } from '../Model';
+import { MainEntity } from './base';
 
 @Entity({
   name: 'Migrations',
 })
-export class Migration extends Model {
+export class Migration extends MainEntity {
   @PrimaryGeneratedColumn('increment')
   public id!: number;
 

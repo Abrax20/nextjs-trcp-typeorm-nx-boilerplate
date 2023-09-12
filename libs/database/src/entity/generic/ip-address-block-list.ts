@@ -5,7 +5,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Model } from '../Model';
+import { Model } from './base';
 
 @Entity({
   name: 'IPAddressBlockList',
