@@ -6,22 +6,22 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { AccountEntity } from './account.entity';
+import { Account } from './account.entity';
 import { MainEntity } from './generic/base';
-import { PlanEntity } from './plan.entity';
+import { Plan } from './plan.entity';
 
 @Entity('Subscriptions')
 export class SubscriptionEntity extends MainEntity {
   @PrimaryGeneratedColumn('uuid')
   public id!: string;
 
-  @ManyToOne(() => AccountEntity, (account) => account.subscriptions)
+  @ManyToOne(() => Account, (account) => account.subscriptions)
   @JoinColumn({ name: 'account_id' })
-  public account!: AccountEntity;
+  public account!: Account;
 
-  @ManyToOne(() => PlanEntity, (plan) => plan.subscriptions)
+  @ManyToOne(() => Plan, (plan) => plan.subscriptions)
   @JoinColumn({ name: 'plan_id' })
-  public plan!: PlanEntity;
+  public plan!: Plan;
 
   @Column('boolean', { default: true })
   public autoRenew!: boolean;

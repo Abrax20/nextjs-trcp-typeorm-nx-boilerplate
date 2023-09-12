@@ -1,16 +1,10 @@
-import { AccountEntity } from './account.entity';
+import { Account } from './account.entity';
 import { GenericEntities } from './generic';
-import { PlanEntity } from './plan.entity';
-import { RoleEntity } from './role.entity';
+import { Plan } from './plan.entity';
+import { Role } from './role.entity';
 import { SubscriptionEntity } from './subscription.entity';
-import { UserEntity } from './user.entity';
+import { User } from './user.entity';
 
-const WorkspaceEntities = [
-  UserEntity,
-  RoleEntity,
-  AccountEntity,
-  SubscriptionEntity,
-  PlanEntity,
-];
+const WorkspaceEntities = [User, Role, Account, SubscriptionEntity, Plan];
 
 export const Entities = [...GenericEntities, ...WorkspaceEntities];

@@ -7,7 +7,7 @@ import { MainEntity } from './generic/base';
 @Entity({
   name: 'Permissions',
 })
-export class PermissionEntity extends MainEntity {
+export class Permission extends MainEntity {
   public async update(
     permission: Partial<{
       name: string;

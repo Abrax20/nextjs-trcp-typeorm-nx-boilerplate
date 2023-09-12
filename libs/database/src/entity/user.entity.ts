@@ -2,14 +2,14 @@
 import { zod } from '@sprindt/generic';
 import { Column, Entity, ManyToOne } from 'typeorm';
 
-import { AccountEntity } from './account.entity';
+import { Account } from './account.entity';
 import { MainEntity } from './generic/base';
 import { Role } from './role.entity';
 
 @Entity({
   name: 'Users',
 })
-export class UserEntity extends MainEntity {
+export class User extends MainEntity {
   public async update(
     user: Partial<{
       email: string;
@@ -41,6 +41,6 @@ export class UserEntity extends MainEntity {
   @ManyToOne(() => Role, (role) => role.users)
   public role: Role;
 
-  @ManyToOne(() => AccountEntity, (account) => account.users)
-  public account: AccountEntity;
+  @ManyToOne(() => Account, (account) => account.users)
+  public account: Account;
 }

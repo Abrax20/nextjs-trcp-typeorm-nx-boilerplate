@@ -3,12 +3,12 @@ import { zod } from '@sprindt/generic';
 import { Column, Entity, OneToMany } from 'typeorm';
 
 import { MainEntity } from './generic/base';
-import { UserEntity } from './user.entity';
+import { User } from './user.entity';
 
 @Entity({
   name: 'Roles',
 })
-export class RoleEntity extends MainEntity {
+export class Role extends MainEntity {
   public async update(
     role: Partial<{
       name: string;
@@ -27,6 +27,6 @@ export class RoleEntity extends MainEntity {
   @Column('varchar', { nullable: true, length: 255 })
   public description!: string;
 
-  @OneToMany(() => UserEntity, (user) => user.role)
-  public users: UserEntity[];
+  @OneToMany(() => User, (user) => user.role)
+  public users: User[];
 }

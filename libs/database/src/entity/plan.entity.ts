@@ -4,7 +4,7 @@ import { MainEntity } from './generic/base';
 import { SubscriptionEntity } from './subscription.entity';
 
 @Entity('Plans')
-export class PlanEntity extends MainEntity {
+export class Plan extends MainEntity {
   @PrimaryGeneratedColumn('uuid')
   public id!: string;
 
