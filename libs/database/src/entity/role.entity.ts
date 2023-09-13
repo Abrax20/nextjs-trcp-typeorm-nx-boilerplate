@@ -1,32 +1,44 @@
-// role.entity.ts
-import { zod } from '@sprindt/generic';
 import { Column, Entity, OneToMany } from 'typeorm';
+import { z } from 'zod';
 
 import { MainEntity } from './generic/base';
 import { User } from './user.entity';
+
+enum UserRole {
+  ADMIN = 'admin',
+  EDITOR = 'editor',
+}
 
 @Entity({
   name: 'Roles',
 })
 export class Role extends MainEntity {
-  public async update(
-    role: Partial<{
-      name: string;
-      description: string;
-    }>
-  ) {
-    this.changeField('name', role.name, zod.string());
-    this.changeField('description', role.description, zod.string());
-
-    return this.save();
-  }
-
-  @Column('varchar', { nullable: false, length: 255, unique: true })
+  @Column({
+    type: 'enum',
+    enum: UserRole,
+    default: UserRole.EDITOR,
+    unique: true,
+  })
   public name!: string;
 
-  @Column('varchar', { nullable: true, length: 255 })
-  public description!: string;
+  @Column('text', { nullable: true })
+  public description: string;
 
   @OneToMany(() => User, (user) => user.role)
   public users: User[];
+
+  public async update(
+    role: Partial<{
+      name: UserRole;
+      description: string;
+    }>
+  ) {
+    if (role.name) {
+      this.name = z.nativeEnum(UserRole).parse(role.name);
+
+      if (role.description) {
+        this.description = z.string().parse(role.description);
+      }
+    }
+  }
 }
