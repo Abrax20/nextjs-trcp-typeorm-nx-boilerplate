@@ -3,6 +3,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -11,12 +12,11 @@ import { MainEntity } from './generic/base';
 import { Plan } from './plan.entity';
 
 @Entity('Subscriptions')
-export class SubscriptionEntity extends MainEntity {
+export class Subscription extends MainEntity {
   @PrimaryGeneratedColumn('uuid')
   public id!: string;
 
-  @ManyToOne(() => Account, (account) => account.subscriptions)
-  @JoinColumn({ name: 'account_id' })
+  @OneToOne(() => Account, (account) => account.subscription)
   public account!: Account;
 
   @ManyToOne(() => Plan, (plan) => plan.subscriptions)
