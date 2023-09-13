@@ -1,11 +1,11 @@
 import { Column, Entity } from 'typeorm';
 
-import { Model } from './base';
+import { MainEntity } from './base';
 
 @Entity({
   name: 'IPAddressAllowList',
 })
-export class IPAddressAllowList extends Model {
+export class IPAddressAllowList extends MainEntity {
   @Column('inet', { primary: true, nullable: false })
   public ip!: string;
 

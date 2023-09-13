@@ -5,12 +5,12 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Model } from './base';
+import { MainEntity } from './base';
 
 @Entity({
   name: 'IPAddressBlockList',
 })
-export class IPAddressBlockList extends Model {
+export class IPAddressBlockList extends MainEntity {
   @PrimaryGeneratedColumn('uuid')
   public uuid!: string;
 

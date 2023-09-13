@@ -22,23 +22,24 @@ export class Role extends MainEntity {
   public name!: string;
 
   @Column('text', { nullable: true })
-  public description: string;
+  public description?: string;
 
   @OneToMany(() => User, (user) => user.role)
   public users: User[];
 
-  public async update(
-    role: Partial<{
-      name: UserRole;
-      description: string;
-    }>
-  ) {
-    if (role.name) {
-      this.name = z.nativeEnum(UserRole).parse(role.name);
+  // @ManyToMany(() => Permission, (permission) => permission.roles)
+  // public permissions!: Permission[];
 
-      if (role.description) {
-        this.description = z.string().parse(role.description);
-      }
-    }
+  public async update(data: Partial<Role>) {
+    const validatedData = z
+      .object({
+        name: z.string().optional(),
+        description: z.string().optional(),
+      })
+      .parse(data);
+
+    Object.assign(this, validatedData);
+
+    return this.save();
   }
 }
