@@ -17,10 +17,10 @@ import { User } from './user.entity';
   name: 'Accounts',
 })
 export class Account extends MainEntity {
-  @Column('varchar', { nullable: false, length: 255, unique: true })
-  public accountName!: string;
+  @Column('varchar', { length: 255, unique: true })
+  public name!: string;
 
-  @Column('boolean', { nullable: false, default: true })
+  @Column('boolean', { default: true })
   public isActive!: boolean;
 
   @OneToMany(() => User, (user) => user.account)
@@ -32,11 +32,11 @@ export class Account extends MainEntity {
   @OneToMany(() => Product, (product) => product.account, {
     nullable: true,
   })
-  public products: Product[];
+  public products?: Product[];
 
   @ManyToMany(() => Platform, (platform) => platform.accounts, {
     nullable: true,
   })
   @JoinTable()
-  public platforms: Platform[];
+  public platforms?: Platform[];
 }
