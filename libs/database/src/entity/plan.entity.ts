@@ -1,7 +1,7 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 import { MainEntity } from './generic/base';
-import { SubscriptionEntity } from './subscription.entity';
+import { Subscription } from './subscription.entity';
 
 @Entity('Plans')
 export class Plan extends MainEntity {
@@ -17,6 +17,6 @@ export class Plan extends MainEntity {
   @Column('float', { default: 0 })
   public price!: number;
 
-  @OneToMany(() => SubscriptionEntity, (subscription) => subscription.plan)
-  public subscriptions!: SubscriptionEntity[];
+  @OneToOne(() => Subscription, (subscription) => subscription.plan)
+  public subscriptions!: Subscription[];
 }

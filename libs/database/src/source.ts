@@ -16,8 +16,7 @@ export const appDataSource = new DataSource({
   password: process.env.DATABASE_PASSWORD || 'reachout',
   database: process.env.DATABASE_DATABASE || 'reachout',
   port: parseInt(process.env.DATABASE_PORT || '5432', 10),
-  // TODO: on in Dev
-  logging: false,
+  logging: ['error'],
   subscribers: [],
   // TODO: Off in prod
   synchronize: true,
