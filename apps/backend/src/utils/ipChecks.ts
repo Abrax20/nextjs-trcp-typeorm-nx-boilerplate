@@ -2,7 +2,7 @@ import {
   getDataSource,
   IPAddressAllowList,
   IPAddressBlockList,
-} from '@example/database';
+} from '@sprindt/database';
 import IPCIDR from 'ip-cidr';
 import { isIP, isIPv4 } from 'net';
 

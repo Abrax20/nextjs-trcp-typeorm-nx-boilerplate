@@ -1,30 +1,21 @@
-FROM node:18.16.0-alpine3.18
-
-# set timezone
-ENV TZ=Europe/Berlin
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-RUN apk add --no-cache make gcc g++ python3 git
-
+# Base Image
+FROM node:18.16.0-alpine3.18 AS deps
 WORKDIR /app
-ENV NODE_ENV=development
 
-# install dependencies
-COPY package.json tsconfig.json tsconfig.base.json .env .env.example package-lock.json yarn.lock jest.config.ts jest.preset.js .npmrc .yarnrc nx.json .env env.mjs ./
-RUN yarn global add nx@14.8.6
-RUN yarn install --check-files --frozen-lockfile && yarn cache clean
+# Set timezone and install system dependencies
+ENV TZ=Europe/Berlin
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
+    apk add --no-cache make gcc g++ python3 git
 
-# copy source files
-COPY libs/  ./libs/
-COPY scripts/  ./scripts/
-COPY apps/ ./apps/
+# Copy configs and install dependencies
+COPY package.json tsconfig.json tsconfig.base.json .env jest.config.ts jest.preset.js .npmrc nx.json env.mjs yarn.lock .yarnrc.yml ./
+COPY .yarn ./.yarn
+RUN yarn install --frozen-lockfile
 
-# change user
-# RUN adduser -D worker
-# USER worker
+# Copy source files
+COPY . .
 
-# expose ports
-EXPOSE 8080
-EXPOSE 8040
-EXPOSE 9229
+# Expose ports
+EXPOSE 8080 8040 9229
 
-CMD yarn migration:run && yarn start backend
+CMD ["sh", "-c", "yarn migration:run && yarn start backend"]

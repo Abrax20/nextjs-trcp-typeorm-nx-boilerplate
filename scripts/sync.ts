@@ -1,6 +1,6 @@
 /*
 
-import { connectDatabase, Migration } from '@example/database';
+import { connectDatabase, Migration } from '@sprindt/database';
 import moment from 'moment';
 import { getMigrations } from '../libs/database/src/migrations';
 // eslint-disable-next-line unicorn/prefer-top-level-await

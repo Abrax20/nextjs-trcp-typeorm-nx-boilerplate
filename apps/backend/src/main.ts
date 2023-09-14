@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 
-import { connectDatabase } from '@example/database';
+import { connectDatabase } from '@sprindt/database';
 import http from 'http';
 
 import { env } from '../../../env.mjs';

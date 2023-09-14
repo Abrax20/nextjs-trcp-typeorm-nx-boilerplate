@@ -1,4 +1,4 @@
-import { connectRedis } from '@example/database';
+import { connectRedis } from '@sprindt/database';
 
 import { env } from '../../../../env.mjs';
 

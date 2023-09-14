@@ -1,5 +1,5 @@
 import { unauthorized } from '@hapi/boom';
-import { zod } from '@example/generic';
+import { zod } from '@sprindt/generic';
 
 import { env } from '../../../../env.mjs';
 

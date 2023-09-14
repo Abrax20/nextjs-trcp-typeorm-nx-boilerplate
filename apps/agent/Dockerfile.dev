@@ -1,46 +1,31 @@
+# Base image with dependencies
 FROM node:18-alpine AS deps
 WORKDIR /app
 
-# set timezone
+# Set timezone and install system dependencies
 ENV TZ=Europe/Berlin
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
+    apk add --no-cache make gcc g++ python3 git libc6-compat
 
-# install system dependencies
-RUN apk add --no-cache make gcc g++ python3 git libc6-compat
+# Copy configs and install dependencies
+COPY package.json tsconfig.json tsconfig.base.json .env jest.config.ts jest.preset.js .npmrc nx.json env.mjs yarn.lock .yarnrc.yml ./
+COPY .yarn ./.yarn
+RUN yarn install --frozen-lockfile
 
-COPY package.json tsconfig.json tsconfig.base.json .env .env.example env.mjs package-lock.json yarn.lock jest.config.ts jest.preset.js .npmrc .yarnrc nx.json ./
+# Runner stage
+FROM deps AS runner
 
-RUN yarn global add nx@16.3.2
-RUN yarn install --check-files --frozen-lockfile && yarn cache clean
-RUN rm -fr node_modules/.cache
-
-FROM node:18-alpine AS runner
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-
-# Copy env
-COPY .env .
-
-# Copy dependencies and configs
-COPY package.json tsconfig.json tsconfig.base.json .env .env.example env.mjs package-lock.json yarn.lock jest.config.ts jest.preset.js .npmrc .yarnrc nx.json ./
-
-# copy source files
-COPY libs/  ./libs/
-COPY scripts/  ./scripts/
-COPY tools/  ./tools/
-COPY apps/ ./apps/
-
+# Environment settings
 ENV NEXT_TELEMETRY_DISABLED 1
-
-RUN apk add --no-cache make gcc g++ python3 git libc6-compat
-
-RUN npm install -g nx@16.3.2
-RUN nx build agent
-
 ENV NODE_ENV development
+ENV PORT 3000
 
-RUN rm -fr node_modules/.cache
+# Copy source files
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/package.json /app/yarn.lock ./
+COPY . .
+
+RUN yarn nx build agent
 
 EXPOSE 3000
-ENV PORT 3000
-CMD ["nx", "serve", "agent"]
+CMD ["yarn", "nx", "serve", "agent"]

@@ -1,53 +1,38 @@
-FROM node:18.16.0-alpine3.18 as builder
+# Base image with dependencies
+FROM node:18.16.0-alpine3.18 AS deps
 WORKDIR /app
 
-# set timezone
+# Set timezone and install system dependencies
 ENV TZ=Europe/Berlin
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
+    apk add --no-cache make gcc g++ python3 git
 
-# install system dependencies
-RUN apk add --no-cache make gcc g++ python3 git
+# Copy configs and install dependencies
+COPY package.json tsconfig.json tsconfig.base.json .env jest.config.ts jest.preset.js .npmrc nx.json env.mjs yarn.lock .yarnrc.yml ./
+COPY .yarn ./.yarn
+RUN yarn install --frozen-lockfile
 
-COPY package.json tsconfig.json tsconfig.base.json .env .env.example package-lock.json yarn.lock jest.config.ts jest.preset.js .npmrc .yarnrc nx.json .env env.mjs ./
-RUN yarn global add nx@14.8.6
-RUN yarn install --check-files --frozen-lockfile && yarn cache clean
-
-# copy source files
-COPY libs/  ./libs/
-COPY scripts/  ./scripts/
-COPY apps/ ./apps/
-
-# build
+# Builder stage
+FROM deps AS builder
+COPY . .
 RUN yarn build backend
 
-FROM node:18.16.0-alpine3.18
+# Runner stage
+FROM node:18.16.0-alpine3.18 AS runner
 WORKDIR /app
-ENV NODE_ENV=production
 
-# set timezone
+# Environment settings
+ENV NODE_ENV=production
 ENV TZ=Europe/Berlin
+
+# Set timezone
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# copy build
-COPY --from=builder /app/node_modules /app/node_modules
-COPY --from=builder /app/config /app/config
+# Copy built files and dependencies
 COPY --from=builder /app/dist/apps/backend /app/
-# COPY --from=builder /app/licenses.txt /app/licenses.txt
+COPY --from=deps /app/node_modules ./node_modules
 
-# copy aux files
-COPY package.json ./
-# COPY certs/  ./build/certs/
+# Expose ports
+EXPOSE 8080 8040
 
-# Setup version env vars
-ARG GIT_COMMIT
-ARG GIT_VERSION
-ENV GIT_COMMIT=$GIT_COMMIT
-ENV GIT_VERSION=$GIT_VERSION
-
-# change user
-# USER node
-
-# expose ports
-EXPOSE 8080
-EXPOSE 8040
 CMD ["node", "main.js"]

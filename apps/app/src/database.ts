@@ -1,4 +1,4 @@
-import { connectDatabase } from '@example/database';
+import { connectDatabase } from '@sprindt/database';
 import { DataSource } from 'typeorm';
 
 import { env } from '../../../env.mjs';

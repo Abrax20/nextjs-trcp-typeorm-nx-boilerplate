@@ -1,4 +1,4 @@
-import { waitForMiddleware } from '@example/generic';
+import { waitForMiddleware } from '@sprindt/generic';
 import express, { RequestHandler } from 'express';
 import status from 'http-status';
 import { ZodSchema } from 'zod';

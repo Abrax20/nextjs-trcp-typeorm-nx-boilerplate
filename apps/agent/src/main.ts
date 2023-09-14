@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 
-import { connectDatabase } from '@example/database';
-import { Worker, Queue } from 'bullmq';
+import { connectDatabase } from '@sprindt/database';
+import { Queue, Worker } from 'bullmq';
 
 import { env } from '../../../env.mjs';
 

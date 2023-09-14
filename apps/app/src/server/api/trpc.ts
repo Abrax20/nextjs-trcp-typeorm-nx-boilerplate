@@ -11,9 +11,9 @@ import type {
   SignedOutAuthObject,
 } from '@clerk/nextjs/server';
 import { clerkClient, getAuth } from '@clerk/nextjs/server';
+import { Organization } from '@sprindt/database';
 import { initTRPC, TRPCError } from '@trpc/server';
 import { type CreateNextContextOptions } from '@trpc/server/adapters/next';
-import { Organisation } from '@example/database';
 import superjson from 'superjson';
 import { ZodError } from 'zod';
 
@@ -116,7 +116,7 @@ const requireOrganization = t.middleware(async ({ next, ctx, ...props }) => {
     throw new TRPCError({ code: 'UNAUTHORIZED' });
   }
 
-  let organisation = await Organisation.findOne({
+  let organisation = await Organization.findOne({
     where: { orgId: auth.orgId },
   });
 
@@ -124,10 +124,10 @@ const requireOrganization = t.middleware(async ({ next, ctx, ...props }) => {
     const data = await clerkClient.organizations.getOrganization({
       organizationId: auth.orgId,
     });
-    organisation = Organisation.create({
+    organisation = Organization.create({
       orgId: auth.orgId,
       name: data.name || 'Unknown',
-    }) as Organisation;
+    }) as Organization;
     await organisation.save();
   }
 
