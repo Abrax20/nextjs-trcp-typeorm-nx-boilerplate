@@ -3,8 +3,7 @@ import 'reflect-metadata';
 import { config } from 'dotenv';
 import * as process from 'process';
 import { DataSource } from 'typeorm';
-
-import { Entities } from './entities';
+import Entities from './entities';
 import { getMigrations } from './migrations';
 
 config();
@@ -12,9 +11,9 @@ export const appDataSource = new DataSource({
   type: 'postgres',
   migrationsTableName: 'Migrations',
   host: process.env.DATABASE_HOST || 'database',
-  username: process.env.DATABASE_USERNAME || 'reachout',
-  password: process.env.DATABASE_PASSWORD || 'reachout',
-  database: process.env.DATABASE_DATABASE || 'reachout',
+  username: process.env.DATABASE_USERNAME || 'localhost',
+  password: process.env.DATABASE_PASSWORD || 'localhost',
+  database: process.env.DATABASE_DATABASE || 'localhost',
   port: parseInt(process.env.DATABASE_PORT || '5432', 10),
   logging: ['error'],
   subscribers: [],
@@ -25,9 +24,9 @@ export const appDataSource = new DataSource({
 
   ...(process.env.DATABASE_REJECT_UNAUTHORIZED === 'false'
     ? {
-        ssl: {
-          rejectUnauthorized: false,
-        },
-      }
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    }
     : {}),
 });
