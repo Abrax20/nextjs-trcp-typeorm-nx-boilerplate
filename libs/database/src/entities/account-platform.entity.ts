@@ -1,3 +1,4 @@
+import { zod } from '@sprindt/generic';
 import { Column, ManyToOne, OneToMany, Unique } from 'typeorm';
 
 import { Account } from './account.entity';
@@ -23,4 +24,16 @@ export default class AccountPlatform extends MainEntity {
     nullable: true,
   })
   public products?: Product[];
+
+  async update(data: Partial<AccountPlatform>): Promise<AccountPlatform> {
+    const validatedData = zod
+      .object({
+        apiEndpoint: zod.string().optional(),
+        apiToken: zod.string().optional(),
+      })
+      .parse(data);
+
+    Object.assign(this, validatedData);
+    return this.save();
+  }
 }
