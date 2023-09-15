@@ -1,6 +1,6 @@
 // user.entity.ts
+import { zod } from '@sprindt/generic';
 import { Column, Entity, ManyToOne } from 'typeorm';
-import { z } from 'zod';
 
 import { Account } from './account.entity';
 import { MainEntity } from './generic/base';
@@ -26,11 +26,11 @@ export class User extends MainEntity {
   public account!: Account;
 
   public async update(data: Partial<User>) {
-    const validatedData = z
+    const validatedData = zod
       .object({
-        email: z.string().email().optional(),
-        name: z.string().optional(),
-        isActive: z.boolean().optional(),
+        email: zod.string().email().optional(),
+        name: zod.string().optional(),
+        isActive: zod.boolean().optional(),
       })
       .parse(data);
 

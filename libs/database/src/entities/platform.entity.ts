@@ -1,5 +1,5 @@
+import { zod } from '@sprindt/generic';
 import { Column, ManyToMany } from 'typeorm';
-import { z } from 'zod';
 
 import { Account } from './account.entity';
 import { MainEntity } from './generic/base';
@@ -17,10 +17,10 @@ export class Platform extends MainEntity {
   public accounts?: Account[];
 
   public async update(data: Partial<Platform>) {
-    const validatedData = z
+    const validatedData = zod
       .object({
-        name: z.string().optional(),
-        description: z.string().optional(),
+        name: zod.string().optional(),
+        description: zod.string().optional(),
       })
       .parse(data);
 

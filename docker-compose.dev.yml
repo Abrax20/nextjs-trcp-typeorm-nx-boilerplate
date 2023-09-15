@@ -7,7 +7,7 @@ services:
       - ./apps/elb/shared:/etc/nginx/shared
       - ./apps/elb/ssl:/etc/nginx/ssl
   app:
-    image: 'example.dev/app:latest'
+    image: 'sprindt.dev/app:latest'
     build:
       dockerfile: 'apps/app/Dockerfile.dev'
     volumes:
@@ -20,7 +20,7 @@ services:
       - redis
       - database
   backend:
-    image: 'example.dev/backend:latest'
+    image: 'sprindt.dev/backend:latest'
     build:
       dockerfile: 'apps/backend/Dockerfile.dev'
     volumes:
@@ -34,7 +34,7 @@ services:
       - redis
       - database
   agent:
-    image: 'example.dev/agent:latest'
+    image: 'sprindt.dev/agent:latest'
     build:
       dockerfile: 'apps/agent/Dockerfile.dev'
     volumes:

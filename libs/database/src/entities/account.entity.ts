@@ -1,3 +1,4 @@
+import { zod } from '@sprindt/generic';
 import {
   Column,
   Entity,
@@ -39,4 +40,17 @@ export class Account extends MainEntity {
   })
   @JoinTable()
   public platforms?: Platform[];
+
+  public async update(data: Partial<Account>) {
+    const validatedData = zod
+      .object({
+        name: zod.string().optional(),
+        isActive: zod.boolean().optional(),
+      })
+      .parse(data);
+
+    Object.assign(this, validatedData);
+
+    return this.save();
+  }
 }

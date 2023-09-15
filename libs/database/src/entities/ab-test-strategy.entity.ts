@@ -1,5 +1,5 @@
+import { zod } from '@sprindt/generic';
 import { Column, Entity, ManyToOne } from 'typeorm';
-import { z } from 'zod';
 
 import ABTest from './ab-test.entity';
 import { MainEntity } from './generic/base';
@@ -18,10 +18,10 @@ export default class ABTestStrategy extends MainEntity {
   public abTest!: ABTest;
 
   public async update(data: Partial<ABTestStrategy>) {
-    const validatedData = z
+    const validatedData = zod
       .object({
-        name: z.string().optional(),
-        description: z.string().optional(),
+        name: zod.string().optional(),
+        description: zod.string().optional(),
       })
       .parse(data);
 

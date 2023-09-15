@@ -1,5 +1,5 @@
+import { zod } from '@sprindt/generic';
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
-import { z } from 'zod';
 
 import ABTest from './ab-test.entity';
 import { MainEntity } from './generic/base';
@@ -37,14 +37,14 @@ export class ABTestPerformance extends MainEntity {
   public abTest!: ABTest;
 
   public async update(data: Partial<ABTestPerformance>) {
-    const validatedData = z
+    const validatedData = zod
       .object({
-        sessions: z.number().optional(),
-        conversionRate: z.number().optional(),
-        aov: z.number().optional(),
-        revenue: z.number().optional(),
-        revenuePerSession: z.number().optional(),
-        likelyHoodToPerform: z.number().optional(),
+        sessions: zod.number().optional(),
+        conversionRate: zod.number().optional(),
+        aov: zod.number().optional(),
+        revenue: zod.number().optional(),
+        revenuePerSession: zod.number().optional(),
+        likelyHoodToPerform: zod.number().optional(),
       })
       .parse(data);
 

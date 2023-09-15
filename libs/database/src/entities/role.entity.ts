@@ -1,7 +1,8 @@
-import { Column, Entity, OneToMany } from 'typeorm';
-import { z } from 'zod';
+import { zod } from '@sprindt/generic';
+import { Column, Entity, JoinTable, ManyToMany, OneToMany } from 'typeorm';
 
 import { MainEntity } from './generic/base';
+import { Permission } from './permission.entity';
 import { User } from './user.entity';
 
 enum UserRole {
@@ -27,14 +28,15 @@ export class Role extends MainEntity {
   @OneToMany(() => User, (user) => user.role)
   public users: User[];
 
-  // @ManyToMany(() => Permission, (permission) => permission.roles)
-  // public permissions!: Permission[];
+  @ManyToMany(() => Permission, (permission) => permission.roles)
+  @JoinTable()
+  public permissions!: Permission[];
 
   public async update(data: Partial<Role>) {
-    const validatedData = z
+    const validatedData = zod
       .object({
-        name: z.string().optional(),
-        description: z.string().optional(),
+        name: zod.nativeEnum(UserRole).optional(),
+        description: zod.string().optional(),
       })
       .parse(data);
 
