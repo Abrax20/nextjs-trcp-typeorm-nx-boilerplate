@@ -12,14 +12,14 @@ import { MainEntity } from './base';
 })
 export class IPAddressBlockList extends MainEntity {
   @PrimaryGeneratedColumn('uuid')
-  public uuid!: string;
+  public uuid: string;
 
   @Column('inet', { nullable: false })
-  public startIp!: string;
+  public startIp: string;
 
   @Column('inet', { nullable: false })
-  public endIp!: string;
+  public endIp: string;
 
   @CreateDateColumn()
-  public createdAt!: Date;
+  public createdAt: Date;
 }

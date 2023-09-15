@@ -7,11 +7,11 @@ import { MainEntity } from './base';
 })
 export class IPAddressAllowList extends MainEntity {
   @Column('inet', { primary: true, nullable: false })
-  public ip!: string;
+  public ip: string;
 
   @Column('text', { nullable: true, default: null })
-  public comment!: string | null;
+  public comment: string | null;
 
   @Column('inet', { nullable: true, default: null })
-  public rateLimitFactor!: number | null;
+  public rateLimitFactor: number | null;
 }

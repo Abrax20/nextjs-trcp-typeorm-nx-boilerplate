@@ -18,17 +18,17 @@ import Product from './product.entity';
 })
 export default class ABTest extends MainEntity {
   @Column({ type: 'varchar', length: 255 })
-  public name!: string;
+  public name: string;
 
   @Column({
     type: 'timestamp',
 
     default: () => 'CURRENT_TIMESTAMP',
   })
-  public startDate!: Date;
+  public startDate: Date;
 
   @Column({ type: 'timestamp' })
-  public endDate!: Date;
+  public endDate: Date;
 
   /**
    * Performance metrics of the A/B test.
@@ -38,19 +38,19 @@ export default class ABTest extends MainEntity {
     (abTestPerformance) => abTestPerformance.abTest
   )
   @JoinColumn()
-  public abTestPerformance!: ABTestPerformance;
+  public abTestPerformance: ABTestPerformance;
 
   /**
    * Strategies used in the A/B test.
    */
   @OneToMany(() => ABTestStrategy, (abTestStrategy) => abTestStrategy.abTest)
-  public abTestStrategies!: ABTestStrategy[];
+  public abTestStrategies: ABTestStrategy[];
 
   /**
    * Product associated with the A/B test.
    */
   @ManyToOne(() => Product, (product) => product.abTests)
-  public product!: Product;
+  public product: Product;
 
   public async update(data: Partial<ABTest>) {
     const validatedData = zod

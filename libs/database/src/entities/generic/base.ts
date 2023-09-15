@@ -4,7 +4,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { ZodError, z } from 'zod';
+import { z, ZodError } from 'zod';
 
 /**
  * MainEntity is a base entity that provides common fields and utilities for other entities.
@@ -14,19 +14,19 @@ export class MainEntity extends BaseEntity {
    * UUID of the entity.
    */
   @PrimaryGeneratedColumn('uuid')
-  public uuid!: string;
+  public uuid: string;
 
   /**
    * Timestamp when the entity was created.
    */
   @CreateDateColumn({ nullable: false })
-  public createdAt!: Date;
+  public createdAt: Date;
 
   /**
    * Timestamp when the entity was last updated.
    */
   @UpdateDateColumn({ nullable: false })
-  public updatedAt!: Date;
+  public updatedAt: Date;
 
   /**
    * Validates and changes a field's value based on a provided Zod schema.

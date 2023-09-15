@@ -20,7 +20,7 @@ export class Role extends MainEntity {
     default: UserRole.EDITOR,
     unique: true,
   })
-  public name!: string;
+  public name: string;
 
   @Column('text', { nullable: true })
   public description?: string;
@@ -30,7 +30,7 @@ export class Role extends MainEntity {
 
   @ManyToMany(() => Permission, (permission) => permission.roles)
   @JoinTable()
-  public permissions!: Permission[];
+  public permissions: Permission[];
 
   public async update(data: Partial<Role>) {
     const validatedData = zod

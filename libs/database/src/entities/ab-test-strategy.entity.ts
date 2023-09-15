@@ -9,13 +9,13 @@ import { MainEntity } from './generic/base';
 })
 export default class ABTestStrategy extends MainEntity {
   @Column({ type: 'varchar', length: 255, unique: true })
-  public name!: string;
+  public name: string;
 
   @Column({ type: 'text', nullable: true })
   public description?: string;
 
   @ManyToOne(() => ABTest, (abTest) => abTest.abTestStrategies)
-  public abTest!: ABTest;
+  public abTest: ABTest;
 
   public async update(data: Partial<ABTestStrategy>) {
     const validatedData = zod

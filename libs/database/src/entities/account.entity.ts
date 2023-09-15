@@ -1,15 +1,8 @@
 import { zod } from '@sprindt/generic';
-import {
-  Column,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  OneToMany,
-  OneToOne,
-} from 'typeorm';
+import { Column, Entity, OneToMany, OneToOne } from 'typeorm';
 
+import AccountPlatform from './account-platform.entity';
 import { MainEntity } from './generic/base';
-import { Platform } from './platform.entity';
 import Product from './product.entity';
 import { Subscription } from './subscription.entity';
 import { User } from './user.entity';
@@ -19,27 +12,30 @@ import { User } from './user.entity';
 })
 export class Account extends MainEntity {
   @Column('varchar', { length: 255, unique: true })
-  public name!: string;
+  public name: string;
 
   @Column('boolean', { default: true })
-  public isActive!: boolean;
+  public isActive: boolean;
 
   @OneToMany(() => User, (user) => user.account)
-  public users!: User[];
+  public users: User[];
 
   @OneToOne(() => Subscription, (subscription) => subscription.account)
-  public subscription!: Subscription;
+  public subscription: Subscription;
 
   @OneToMany(() => Product, (product) => product.account, {
     nullable: true,
   })
   public products?: Product[];
 
-  @ManyToMany(() => Platform, (platform) => platform.accounts, {
-    nullable: true,
-  })
-  @JoinTable()
-  public platforms?: Platform[];
+  @OneToMany(
+    () => AccountPlatform,
+    (accountPlatform) => accountPlatform.account,
+    {
+      nullable: true,
+    }
+  )
+  public accountPlatforms?: AccountPlatform[];
 
   public async update(data: Partial<Account>) {
     const validatedData = zod

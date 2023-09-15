@@ -1,20 +1,25 @@
 import { zod } from '@sprindt/generic';
-import { Column, ManyToMany } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 
-import { Account } from './account.entity';
+import AccountPlatform from './account-platform.entity';
 import { MainEntity } from './generic/base';
 
+@Entity({
+  name: 'Platforms',
+})
 export class Platform extends MainEntity {
   @Column('varchar', { length: 255, unique: true })
-  public name!: string;
+  public name: string;
 
   @Column('text', { nullable: true })
   public description?: string;
 
-  @ManyToMany(() => Account, (account) => account.platforms, {
-    nullable: true,
-  })
-  public accounts?: Account[];
+  @OneToMany(
+    () => AccountPlatform,
+    (accountPlatform) => accountPlatform.platform,
+    { nullable: true }
+  )
+  public accountPlatforms?: AccountPlatform[];
 
   public async update(data: Partial<Platform>) {
     const validatedData = zod

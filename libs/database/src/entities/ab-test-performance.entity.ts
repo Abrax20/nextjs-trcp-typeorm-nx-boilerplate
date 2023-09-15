@@ -9,32 +9,32 @@ import { MainEntity } from './generic/base';
 })
 export class ABTestPerformance extends MainEntity {
   @Column({ type: 'int', default: 0 })
-  public sessions!: number;
+  public sessions: number;
 
   @Column({ type: 'float', precision: 2, default: 0.0 })
-  public conversionRate!: number;
+  public conversionRate: number;
 
   @Column({ type: 'float', precision: 2, default: 0.0 })
-  public aov!: number;
+  public aov: number;
 
   @Column({ type: 'float', precision: 2, default: 0.0 })
-  public revenue!: number;
+  public revenue: number;
 
   @Column({ type: 'float', precision: 2, default: 0.0 })
-  public revenuePerSession!: number;
+  public revenuePerSession: number;
 
   @Column({ type: 'float', precision: 2, default: 0.0 })
-  public likelyHoodToPerform!: number;
+  public likelyHoodToPerform: number;
 
   @Column()
-  public abTestId!: string;
+  public abTestId: string;
 
   /**
    * A/B test associated with the performance metrics.
    */
   @OneToOne(() => ABTest, (abTest) => abTest.abTestPerformance)
   @JoinColumn({ name: 'abTestId' })
-  public abTest!: ABTest;
+  public abTest: ABTest;
 
   public async update(data: Partial<ABTestPerformance>) {
     const validatedData = zod

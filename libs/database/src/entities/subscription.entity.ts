@@ -14,20 +14,20 @@ import { Plan } from './plan.entity';
 @Entity('Subscriptions')
 export class Subscription extends MainEntity {
   @PrimaryGeneratedColumn('uuid')
-  public id!: string;
+  public id: string;
 
   @OneToOne(() => Account, (account) => account.subscription)
-  public account!: Account;
+  public account: Account;
 
   @ManyToOne(() => Plan, (plan) => plan.subscriptions)
   @JoinColumn({ name: 'plan_id' })
-  public plan!: Plan;
+  public plan: Plan;
 
   @Column('boolean', { default: true })
-  public autoRenew!: boolean;
+  public autoRenew: boolean;
 
   @Column('boolean', { default: true })
-  public notation!: boolean;
+  public notation: boolean;
 
   @Column('varchar', { nullable: true, unique: true })
   public stripeCustomerId?: string;
@@ -42,5 +42,5 @@ export class Subscription extends MainEntity {
   public stripeSubscriptionEndDate?: Date;
 
   @Column('varchar', { default: 'ACTIVE' })
-  public stripeSubscriptionStatus!: string;
+  public stripeSubscriptionStatus: string;
 }

@@ -9,19 +9,19 @@ import { MainEntity } from './generic/base';
 })
 export class Organization extends MainEntity {
   @Column('text', { nullable: false, unique: true })
-  public orgId!: string;
+  public orgId: string;
 
   @Column('text', { nullable: false })
-  public name!: string;
+  public name: string;
 
   @Column('text', { default: '' })
-  public website!: string;
+  public website: string;
 
   @Column('text', { nullable: true, default: null })
-  public stripeCustomerId!: string | null;
+  public stripeCustomerId: string | null;
 
   @Column('text', { nullable: true, default: null })
-  public stripeSubscriptionId!: string | null;
+  public stripeSubscriptionId: string | null;
 
   public update({
     name,

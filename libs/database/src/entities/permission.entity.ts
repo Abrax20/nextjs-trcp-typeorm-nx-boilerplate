@@ -10,13 +10,13 @@ import { Role } from './role.entity';
 })
 export class Permission extends MainEntity {
   @Column('varchar', { nullable: false, length: 255, unique: true })
-  public name!: string;
+  public name: string;
 
   @Column('varchar', { nullable: true, length: 255 })
-  public description!: string;
+  public description: string;
 
   @ManyToMany(() => Role, (role) => role.permissions)
-  public roles!: Role[];
+  public roles: Role[];
 
   public async update(data: Partial<Permission>) {
     const validatedData = zod

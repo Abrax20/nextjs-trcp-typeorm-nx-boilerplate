@@ -7,11 +7,11 @@ import { MainEntity } from './base';
 })
 export class Migration extends MainEntity {
   @PrimaryGeneratedColumn('increment')
-  public id!: number;
+  public id: number;
 
   @Column('varchar', { nullable: false })
-  public name!: string;
+  public name: string;
 
   @Column('int', { nullable: false })
-  public timestamp!: string;
+  public timestamp: string;
 }
